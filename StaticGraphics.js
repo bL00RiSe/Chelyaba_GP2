@@ -1,12 +1,15 @@
 
 StaticGraphics = function()
 {
-	this.myImg = new Image();
 	this.lives = 3;
-	this.myImg.src = "res/background1.jpg";
+	this.mySpr = new Sprite( { "baseUrl" : "res/backgrounds", "fps" : 30, "frames" : ["background1.jpg", "background2.jpg", "background3.jpg", "backgr_gameover.jpg"] } );
 }
 
+StaticGraphics.prototype.Calculate = function( hitCount )
+{
+	this.mySpr.setFrame( hitCount );
+}
 StaticGraphics.prototype.Render = function( )
 {
-	ctx.drawImage( this.myImg, 0, 0 );
+	this.mySpr.draw( 0, 0 );
 }

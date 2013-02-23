@@ -15,12 +15,14 @@ Player = function()
 
 Player.prototype.MoveLeft = function()
 { 
-	this.currentPos = (this.currentPos > 0) ? --this.currentPos : (this.positions.length - 1);
+	if ( this.currentPos > 0 )
+		this.currentPos--;
 	//this.mySpr.setFrame( 0 );
 }
 Player.prototype.MoveRight = function()
 {
-	this.currentPos = (this.currentPos < (this.positions.length-1)) ? ++this.currentPos : 0;
+	if ( this.currentPos < (this.positions.length - 1) )
+		this.currentPos++;
 	//this.mySpr.setFrame( 1 );
 }
 

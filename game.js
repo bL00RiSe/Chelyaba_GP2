@@ -8,15 +8,15 @@ Game = function () {
 }
 
 Game.prototype.Load = function () {
-    ///-=-=-=-=-=-=-SAVING IT FOR SOUND-=-=-=-=-=-=-=-=-=-=-=-
-    /* load sound
-    this.SoundJump = new buzz.sound("res/jump.ogg");
-    this.SoundJump.play();
+    // load sound
+    this.blyadSound = new buzz.sound("res/music/blyadfx.mp3");
+    this.bleepSound = new buzz.sound("res/music/bleepfx.mp3");
+    this.expSound = new buzz.sound("res/music/explosionfx.mp3");
 
     // load ambient music and play it
-    this.SoundAmbient = new buzz.sound("res/sound.ogg");
+    this.SoundAmbient = new buzz.sound("res/music/gamemusic.mp3");
     this.SoundAmbient.loop().play();
-    -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-*/
+    
     this.player = new Player();
     this.meteorRain = new MeteorRain();
     this.staticGraphics = new StaticGraphics();
@@ -24,12 +24,17 @@ Game.prototype.Load = function () {
 }
 
 Game.prototype.Calculate = function () {
+    this.staticGraphics.Calculate( this.meteorRain.hitCounter );
+    if ( this.meteorRain.hitCounter > 2 )
+        return;
+    
     this.meteorRain.heroIndexPosition = this.player.currentPos;
     
     if ( this.meteorRain.hitPosition != null )
     {
         this.currentBoom = new BoomAnim( this.meteorRain.hitPosition.x, this.meteorRain.hitPosition.y );
         this.meteorRain.hitPosition = null;
+        this.expSound.play();
     }
     
     this.meteorRain.Calculate();
@@ -40,10 +45,15 @@ Game.prototype.Calculate = function () {
         if ( !this.currentBoom.active )
             this.currentBoom = null;
     }
-        
 }
 
 Game.prototype.Render = function () {
+    if ( this.meteorRain.hitCounter > 2 )
+    {
+        this.staticGraphics.Render();
+        return;
+    }
+    
     this.staticGraphics.Render();
     this.player.Render();
     this.meteorRain.Render();
@@ -75,9 +85,15 @@ Game.prototype.onkeydown = function (e) {
     // e.whitch contains charcode of pressed key
     
     if (e.which == 37) //handled left key event
+    {
+        this.bleepSound.play();
         this.player.MoveLeft();
+    }
     if (e.which == 39) //hadled right key event
+    {
+        this.bleepSound.play();
         this.player.MoveRight();
+    }
 }
 
 //-=-=-=-=-=-=-=So, maybe we will use it later-=-=-=-=-=-=-
