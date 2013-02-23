@@ -7,6 +7,7 @@ MeteorRain = function () {
 	
 	this.start = [ new Vec2(0, 0), new Vec2(200, 0), new Vec2(400, 0), new Vec2(600, 0) ];
 	this.finish = [ new Vec2(300, 300), new Vec2(300, 300), new Vec2(300, 300), new Vec2(300, 300) ];
+	this.rotate = [1, 0, 1, 0];
 }
 
 MeteorRain.prototype.AppendMeteor = function ()
@@ -21,10 +22,10 @@ MeteorRain.prototype.AppendMeteor = function ()
 		this.meteorList.push(newItem);
 	}
 	
-	var index = Math.floor( Math.random() * 3);
-	
-	newItem.start = this.start[index].clone();
-	newItem.finish = this.finish[index].clone();
+	newItem.index = Math.floor( Math.random() * 3);
+	newItem.rotation = this.rotate[newItem.index]
+	newItem.start = this.start[newItem.index].clone();
+	newItem.finish = this.finish[newItem.index].clone();
 	newItem.Start(this.timer);
 	
 	return newItem;
@@ -36,7 +37,7 @@ MeteorRain.prototype.Calculate = function ()
 	
 	while (this.timer>this.fireTimer) 
 	{
-		this.fireTimer += 7000;
+		this.fireTimer += 1000;
 		this.AppendMeteor();
 	}
 	
@@ -60,8 +61,11 @@ Meteor = function () {
 	
 	this.isFree = true;
 	this.isVisible = false;
+	this.index = 1;
+	
 	this.start = new Vec2(600,0);
 	this.finish = new Vec2(300,300);
+	this.rotation = 1;
 	this.startTime = 0;
 	this.sprite = new Image();
     this.sprite.src = 'res/creature.png';
@@ -101,5 +105,14 @@ Meteor.prototype.Calculate = function (currentTime)
 Meteor.prototype.Render = function ()
 {
 	if (this.isVisible) 
-		ctx.drawImage( this.sprite, this.current.x, this.current.y );
+	{
+		//ctx.save();
+		ctx.setTransform(1, 0, 0, 1, 0, 0);
+		ctx.translate(this.current.x, this.current.y);
+		ctx.rotate(this.rotation);
+	    ctx.translate(-64, -64);
+		ctx.drawImage( this.sprite, 0, 0 );
+		ctx.setTransform(1, 0, 0, 1, 0, 0);
+		//ctx.restore();
+	}
 }
