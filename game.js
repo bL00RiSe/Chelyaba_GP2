@@ -8,7 +8,8 @@ Game = function () {
 }
 
 Game.prototype.Load = function () {
-
+    //TEST COMMENT
+    
     // load sound
     this.SoundJump = new buzz.sound("res/jump.ogg");
     this.SoundJump.play();
