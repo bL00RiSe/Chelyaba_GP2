@@ -85,12 +85,14 @@ Meteor.prototype.Calculate = function (currentTime)
 	}
 	else
 	{
-		this.current.set(this.finish);
-		//this.isVisible = false;
+		this.current.clone(this.finish);
+		this.isVisible = false;
+		this.isFree = true;
 	}
 }
 
 Meteor.prototype.Render = function ()
 {
-	if (this.isVisible) ctx.drawImage( this.sprite, this.current.x, this.current.y );
+	if (this.isVisible) 
+		ctx.drawImage( this.sprite, this.current.x, this.current.y );
 }
