@@ -49,6 +49,12 @@ Game.prototype.Render = function () {
     this.meteorRain.Render();
     if ( this.currentBoom )
         this.currentBoom.Render();
+    
+    // Draw info
+	ctx.fillStyle = "#FF00AA";    
+    ctx.font="15px Arial Black";
+    ctx.fillText("Score: "+ this.meteorRain.catchCounter,20,40);
+    //ctx.fillText("W: "+ canvas.width + " H: "+canvas.height,20,40);
 }
 
 //---------------------------------------------
