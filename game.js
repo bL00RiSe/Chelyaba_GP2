@@ -20,17 +20,27 @@ Game.prototype.Load = function () {
     this.player = new Player();
     this.meteorRain = new MeteorRain();
     this.staticGraphics = new StaticGraphics();
+    this.currentBoom = null;
 }
 
 Game.prototype.Calculate = function () {
     this.meteorRain.Calculate();
     this.player.Calculate(tickperframe);
+    if ( this.currentBoom )
+    {
+        this.currentBoom.Calculate();
+        if ( !this.currentBoom.active )
+            this.currentBoom = null;
+    }
+        
 }
 
 Game.prototype.Render = function () {
     this.staticGraphics.Render();
     this.meteorRain.Render();
     this.player.Render();
+    if ( this.currentBoom )
+        this.currentBoom.Render();
 }
 
 //---------------------------------------------
@@ -41,7 +51,9 @@ Game.prototype.onmousedown = function (e) {
 }
 //-=-=-=-=-=-=-=So, maybe we will use it later-=-=-=-=-=-=-
 Game.prototype.onmousemove = function (e) { }
-Game.prototype.onmouseup = function (e) { }
+Game.prototype.onmouseup = function (e) {
+    this.currentBoom = new BoomAnim( e.layerX, e.layerY );
+}
 //-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 //---------------------------------------------

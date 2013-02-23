@@ -8,15 +8,23 @@ BoomAnim = function( x, y )
 	this.xPos = x;
 	this.yPos = y;
 	
+	this.active = true;
+	
 	this.myImg = new Image();
-	this.myImg.src = "res/background1.jpg";
+	this.myImg.src = "res/boom.png";
 }
 
 BoomAnim.prototype.Calculate = function( )
 {
 	this.scaleX += 0.1;
 	this.scaleY += 0.1;
-	this.alpha -= 0.001;
+	this.alpha -= 0.01;
+	
+	if ( this.alpha <= 0 )
+	{
+		this.alpha = 0;
+		this.active = false;
+	}
 }
 
 BoomAnim.prototype.Render = function( )
