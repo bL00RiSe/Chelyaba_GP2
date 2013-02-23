@@ -8,15 +8,15 @@ Game = function () {
 }
 
 Game.prototype.Load = function () {
-    //TEST COMMENT
-    
-    // load sound
+    ///-=-=-=-=-=-=-SAVING IT FOR SOUND-=-=-=-=-=-=-=-=-=-=-=-
+    /* load sound
     this.SoundJump = new buzz.sound("res/jump.ogg");
     this.SoundJump.play();
 
     // load ambient music and play it
     this.SoundAmbient = new buzz.sound("res/sound.ogg");
     this.SoundAmbient.loop().play();
+    -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-*/
 
     // set up creature
     this.creatureImg = new Image();
@@ -24,6 +24,7 @@ Game.prototype.Load = function () {
 
     this.creaturePos = new Vec2(canvas.width / 2, canvas.height / 2);
 
+    
     // set up girl
     this.girlSpr = new Sprite({
         "baseUrl"  : "res/girl/"

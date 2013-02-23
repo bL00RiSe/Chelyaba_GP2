@@ -50,6 +50,12 @@ Sprite.prototype.update = function(dt)
     this.currentFrame=this.frames[frame];
 }
 
+Sprite.prototype.setFrame = function( id )
+{
+    if (!this.valid) return;
+    this.currentFrame=this.frames[id];
+}
+
 Sprite.prototype.draw = function (x, y, w, h) {
     if (!this.valid) return;
     if(arguments.length==2)   ctx.drawImage(this.currentFrame, x, y);
