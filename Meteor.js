@@ -123,7 +123,7 @@ Meteor.prototype.Render = function ()
 		ctx.setTransform(1, 0, 0, 1, 0, 0);
 		ctx.translate(this.current.x, this.current.y);
 		ctx.rotate(this.rotation);
-	    ctx.translate(-64, -64);
+	    ctx.translate(-32, -32);
 		ctx.drawImage( this.sprite, 0, 0 );
 		ctx.setTransform(1, 0, 0, 1, 0, 0);
 		//ctx.restore();
