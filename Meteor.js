@@ -6,9 +6,10 @@ MeteorRain = function () {
 	this.fireTimer = 0;
 	
 	this.start = [ new Vec2(0, 0), new Vec2(200, 0), new Vec2(500, 0), new Vec2(800, 0) ];
-	this.finish = [ new Vec2(400, 300), new Vec2(400, 300), new Vec2(400, 300), new Vec2(400, 300) ];
+	this.finish = [ new Vec2(250, 500), new Vec2(350, 500), new Vec2(450, 500), new Vec2(550, 500) ];
 	
-	this.pathTime = 6000;
+	this.pathTime = 7000;
+	this.fireDelay = 6000;
 	this.heroIndexPosition = 0;
 	this.topBucket = 200;
 	this.catchCounter = 0;
@@ -41,8 +42,11 @@ MeteorRain.prototype.Calculate = function ()
 	
 	while (this.timer>this.fireTimer) 
 	{
-		this.fireTimer += 1000;
+		this.fireTimer += this.fireDelay;
 		this.AppendMeteor();
+		
+		//if (this.pathTime > 1000) this.pathTime -= 100;
+		if (this.fireDelay > 1000) this.fireDelay -= 100;
 	}
 	
 	var that = this;
