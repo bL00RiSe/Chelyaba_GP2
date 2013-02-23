@@ -3,7 +3,7 @@
 // You can modify it for your needs
 //-----------------------------------------
 
-Player = function(  )
+Player = function()
 {
 	this.width  = 128;
 	this.height = 256;

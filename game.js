@@ -17,8 +17,7 @@ Game.prototype.Load = function () {
     this.SoundAmbient = new buzz.sound("res/sound.ogg");
     this.SoundAmbient.loop().play();
     -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-*/
-    this.playerSpr = new Sprite( { "baseUrl" : "res/player", "fps" : 30, 
-                                   "frames" : ["playerLeft.png", "playerRight.png" } );
+    this.player = new Player();
 }
 
 Game.prototype.Calculate = function () 
