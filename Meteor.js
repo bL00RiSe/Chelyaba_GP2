@@ -7,7 +7,6 @@ MeteorRain = function () {
 	
 	this.start = [ new Vec2(0, 0), new Vec2(200, 0), new Vec2(500, 0), new Vec2(800, 0) ];
 	this.finish = [ new Vec2(400, 300), new Vec2(400, 300), new Vec2(400, 300), new Vec2(400, 300) ];
-	this.rotate = [1, 1, 1, 1];
 }
 
 MeteorRain.prototype.AppendMeteor = function ()
@@ -23,7 +22,6 @@ MeteorRain.prototype.AppendMeteor = function ()
 	}
 	
 	newItem.index = Math.floor( Math.random() * 4);
-	newItem.rotation = this.rotate[newItem.index]
 	newItem.start = this.start[newItem.index].clone();
 	newItem.finish = this.finish[newItem.index].clone();
 	newItem.Start(this.timer);
@@ -79,6 +77,8 @@ Meteor.prototype.Start = function (currentTime)
 	this.isVisible = true;
 	this.startTime = currentTime;
 	this.current.set(this.start);
+	
+	this.rotation = Math.atan2(this.finish.y - this.start.y, this.finish.x - this.start.x);
 }
 
 Meteor.prototype.Calculate = function (currentTime)
