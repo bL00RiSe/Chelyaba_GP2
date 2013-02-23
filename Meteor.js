@@ -16,6 +16,7 @@ MeteorRain = function () {
 	this.catchCounter = 0;
 	this.hitCounter = 0;
 	this.hitPosition = null;
+	this.blyadFlag = false;
 }
 
 MeteorRain.prototype.AppendMeteor = function ()
@@ -105,12 +106,16 @@ Meteor.prototype.Calculate = function (currentTime)
 		
 		this.current = result;
 		
-		if (this.rain.heroIndexPosition == this.index 
-			&& this.current.y > this.rain.topBucket && this.current.y < this.rain.bottomBucket)
+		if (this.rain.heroIndexPosition == this.index && this.current.y > this.rain.topBucket)
 		{
-			this.isVisible = false;
-			this.rain.catchCounter++;
-			this.isFree = true;
+			if (this.current.y < this.rain.bottomBucket)
+			{
+				this.isVisible = false;
+				this.rain.catchCounter++;
+				this.isFree = true;
+			}
+			else 
+				this.rain.blyadFlag = true;
 		}
 	}
 	else
