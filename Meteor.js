@@ -14,6 +14,7 @@ MeteorRain = function () {
 	this.topBucket = 200;
 	this.catchCounter = 0;
 	this.hitCounter = 0;
+	this.hitPosition = new Vec2(0, 0);
 }
 
 MeteorRain.prototype.AppendMeteor = function ()
@@ -112,9 +113,10 @@ Meteor.prototype.Calculate = function (currentTime)
 	}
 	else
 	{
-		this.current.clone(this.finish);
+		this.current = this.finish.clone();
 		this.isVisible = false;
 		this.rain.hitCounter++;
+		this.rain.hitPosition = this.finish.clone();
 		this.isFree = true;
 	}
 }
