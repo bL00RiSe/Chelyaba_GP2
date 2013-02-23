@@ -14,7 +14,7 @@ Sprite.prototype.initialize = function(config)
 
     this.frames = [];
     this.valid  = false;
-    this.currentFrame = 0;
+    this.currentFrame = null;
     this.timer = 0;
     this.fps = config.fps;
 
@@ -32,11 +32,16 @@ Sprite.prototype.initialize = function(config)
         {
             waiting--;
 
-            if (waiting <=0)
+            if (waiting <=0 )
+            {
                 that.valid = true;
+                that.setFrame( 0 );
+            }
+            
         }
         img.src = config.baseUrl + "/" +config.frames[frame];
     }
+    
 }
 
 
@@ -58,6 +63,7 @@ Sprite.prototype.setFrame = function( id )
 
 Sprite.prototype.draw = function (x, y, w, h) {
     if (!this.valid) return;
+    if (this.currentFrame == null) return;
     if(arguments.length==2)   ctx.drawImage(this.currentFrame, x, y);
     else   ctx.drawImage(this.currentFrame, x, y, w, h);
 }

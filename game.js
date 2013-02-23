@@ -18,13 +18,15 @@ Game.prototype.Load = function () {
     this.SoundAmbient.loop().play();
     -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-*/
     this.player = new Player();
+    this.meteorRain = new MeteorRain();
 }
 
 Game.prototype.Calculate = function () {
-    
+    this.meteorRain.Calculate();
 }
 
 Game.prototype.Render = function () {
+    this.meteorRain.Render();
     this.player.Render();
 }
 

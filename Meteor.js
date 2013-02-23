@@ -10,12 +10,12 @@ MeteorRain.prototype.AppendMeteor = function ()
 {
 	var newItem = null;
 	
-	meteorList.forEach(function(element){if (null==newItem && element.isFree) newItem = element; })
+	this.meteorList.forEach(function(element){if (null==newItem && element.isFree) newItem = element; })
 	
 	if (null==newItem) 
 	{
 		newItem = new Meteor();
-		meteorList.push(newItem);
+		this.meteorList.push(newItem);
 	}
 	
 	newItem.Start();
@@ -34,12 +34,12 @@ MeteorRain.prototype.Calculate = function ()
 	}
 	
 	
-	meteorList.forEach(function(element){if ( !element.isFree ) element.Calculate(this.timer);})
+	this.meteorList.forEach(function(element){if ( !element.isFree ) element.Calculate(this.timer);})
 }
 
-MeteorRain.prototype.Draw = function ()
+MeteorRain.prototype.Render = function ()
 {
-	meteorList.forEach(function(element){if ( !element.isFree ) element.Draw();})
+	this.meteorList.forEach(function(element){if ( !element.isFree ) element.Render();})
 }
 
 
@@ -48,13 +48,13 @@ Meteor = function () {
 	
 	this.isFree = true;
 	this.isVisible = false;
-	this.start = new vec2(0,600);
-	this.finish = new vec2(300,300);
+	this.start = new Vec2(0,600);
+	this.finish = new Vec2(300,300);
 	this.startTime = 0;
 	this.sprite = new Image();
     this.sprite.src = 'res/creature.png';
 	
-	this.current = start.clone();
+	this.current = this.start.clone();
 }
 
 Meteor.prototype.Start = function (_startTime)
@@ -67,7 +67,7 @@ Meteor.prototype.Start = function (_startTime)
 
 Meteor.prototype.Calculate = function (currentTime)
 {
-	progr = (currentTime-startTime)/pathTime;
+	var progr = (currentTime-this.startTime)/this.pathTime;
 	
 	if (progr<1)
 		this.current = (this.finish - this.start)*progr;
@@ -78,7 +78,8 @@ Meteor.prototype.Calculate = function (currentTime)
 	}
 }
 
-Meteor.prototype.Draw = function ()
+Meteor.prototype.Render = function ()
 {
-	if (this.isVisible) this.sprite.Draw();
+	//if (this.isVisible) ctx.drawImage( this.sprite, this.current.x, this.current.y );
+	if (this.isVisible) ctx.drawImage( this.sprite, 0, 0 );
 }
