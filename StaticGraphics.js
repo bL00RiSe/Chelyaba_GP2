@@ -1,7 +1,3 @@
-// ----------------------------------------
-// sprite.js - very simple sprite class. 
-// You can modify it for your needs
-//-----------------------------------------
 
 StaticGraphics = function()
 {
