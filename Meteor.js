@@ -14,7 +14,7 @@ MeteorRain = function () {
 	this.topBucket = 200;
 	this.catchCounter = 0;
 	this.hitCounter = 0;
-	this.hitPosition = new Vec2(0, 0);
+	this.hitPosition = null;
 }
 
 MeteorRain.prototype.AppendMeteor = function ()

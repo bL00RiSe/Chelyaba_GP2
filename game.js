@@ -28,8 +28,8 @@ Game.prototype.Calculate = function () {
     
     if ( this.meteorRain.hitPosition != null )
     {
+        this.currentBoom = new BoomAnim( this.meteorRain.hitPosition.x, this.meteorRain.hitPosition.y );
         this.meteorRain.hitPosition = null;
-        this.currentBoom = new BoomAnim( hitPosition.x, hitPosition.y );
     }
     
     this.meteorRain.Calculate();
