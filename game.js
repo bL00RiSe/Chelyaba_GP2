@@ -24,6 +24,7 @@ Game.prototype.Load = function () {
 
 Game.prototype.Calculate = function () {
     this.meteorRain.Calculate();
+    this.player.Calculate(tickperframe);
 }
 
 Game.prototype.Render = function () {
