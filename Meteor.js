@@ -7,6 +7,12 @@ MeteorRain = function () {
 	
 	this.start = [ new Vec2(0, 0), new Vec2(200, 0), new Vec2(500, 0), new Vec2(800, 0) ];
 	this.finish = [ new Vec2(400, 300), new Vec2(400, 300), new Vec2(400, 300), new Vec2(400, 300) ];
+	
+	this.pathTime = 6000;
+	this.heroIndexPosition = 0;
+	this.topBucket = 200;
+	this.catchCounter = 0;
+	this.hitCounter = 0;
 }
 
 MeteorRain.prototype.AppendMeteor = function ()
@@ -17,7 +23,7 @@ MeteorRain.prototype.AppendMeteor = function ()
 	
 	if (null==newItem) 
 	{
-		newItem = new Meteor();
+		newItem = new Meteor(this);
 		this.meteorList.push(newItem);
 	}
 	
@@ -42,10 +48,7 @@ MeteorRain.prototype.Calculate = function ()
 	var that = this;
 	
 	this.meteorList.forEach(
-	function(element)
-	{
-		if ( !element.isFree ) element.Calculate(that.timer);
-		})
+	function(element) { if ( !element.isFree ) element.Calculate(that.timer); })
 }
 
 MeteorRain.prototype.Render = function ()
@@ -54,8 +57,8 @@ MeteorRain.prototype.Render = function ()
 }
 
 
-Meteor = function () {
-	this.pathTime = 6000;
+Meteor = function (thatRain) {
+	this.rain = thatRain;
 	
 	this.isFree = true;
 	this.isVisible = false;
@@ -63,22 +66,24 @@ Meteor = function () {
 	
 	this.start = new Vec2(600,0);
 	this.finish = new Vec2(300,300);
+	this.pathTime = 6000;
 	this.rotation = 1;
 	this.startTime = 0;
 	this.sprite = new Image();
-    this.sprite.src = 'res/creature.png';
+    this.sprite.src = 'res/meteor.png';
 	
 	this.current = this.start.clone();
 }
 
 Meteor.prototype.Start = function (currentTime)
 {
+	this.pathTime = this.rain.pathTime;
 	this.isFree = false;
 	this.isVisible = true;
 	this.startTime = currentTime;
 	this.current.set(this.start);
 	
-	this.rotation = Math.atan2(this.finish.y - this.start.y, this.finish.x - this.start.x);
+	this.rotation = Math.atan2(this.finish.y - this.start.y, this.finish.x - this.start.x) - Math.PI*3/4;
 }
 
 Meteor.prototype.Calculate = function (currentTime)
@@ -93,11 +98,19 @@ Meteor.prototype.Calculate = function (currentTime)
 		result.add(this.start,false);
 		
 		this.current = result;
+		
+		if (this.rain.heroIndexPosition == this.index && this.current.y > this.rain.topBucket)
+		{
+			this.isVisible = false;
+			this.rain.catchCounter++;
+			this.isFree = true;
+		}
 	}
 	else
 	{
 		this.current.clone(this.finish);
 		this.isVisible = false;
+		this.rain.hitCounter++;
 		this.isFree = true;
 	}
 }
