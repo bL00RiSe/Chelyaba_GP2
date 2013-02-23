@@ -18,7 +18,7 @@ MeteorRain.prototype.AppendMeteor = function ()
 		this.meteorList.push(newItem);
 	}
 	
-	newItem.Start();
+	newItem.Start(this.timer);
 	
 	return newItem;
 }
@@ -33,8 +33,13 @@ MeteorRain.prototype.Calculate = function ()
 		this.AppendMeteor();
 	}
 	
+	var that = this;
 	
-	this.meteorList.forEach(function(element){if ( !element.isFree ) element.Calculate(this.timer);})
+	this.meteorList.forEach(
+	function(element)
+	{
+		if ( !element.isFree ) element.Calculate(that.timer);
+		})
 }
 
 MeteorRain.prototype.Render = function ()
@@ -48,7 +53,7 @@ Meteor = function () {
 	
 	this.isFree = true;
 	this.isVisible = false;
-	this.start = new Vec2(0,600);
+	this.start = new Vec2(600,0);
 	this.finish = new Vec2(300,300);
 	this.startTime = 0;
 	this.sprite = new Image();
@@ -57,11 +62,11 @@ Meteor = function () {
 	this.current = this.start.clone();
 }
 
-Meteor.prototype.Start = function (_startTime)
+Meteor.prototype.Start = function (currentTime)
 {
 	this.isFree = false;
 	this.isVisible = true;
-	this.startTime = _startTime;
+	this.startTime = currentTime;
 	this.current.set(this.start);
 }
 
@@ -70,16 +75,22 @@ Meteor.prototype.Calculate = function (currentTime)
 	var progr = (currentTime-this.startTime)/this.pathTime;
 	
 	if (progr<1)
-		this.current = (this.finish - this.start)*progr;
+	{
+		var result = this.finish.clone();
+		result.subtract(this.start,false);
+		result.multiply(progr,false);
+		result.add(this.start,false);
+		
+		this.current = result;
+	}
 	else
 	{
 		this.current.set(this.finish);
-		this.isVisible = false;
+		//this.isVisible = false;
 	}
 }
 
 Meteor.prototype.Render = function ()
 {
-	//if (this.isVisible) ctx.drawImage( this.sprite, this.current.x, this.current.y );
-	if (this.isVisible) ctx.drawImage( this.sprite, 0, 0 );
+	if (this.isVisible) ctx.drawImage( this.sprite, this.current.x, this.current.y );
 }
