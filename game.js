@@ -19,6 +19,7 @@ Game.prototype.Load = function () {
     -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-*/
     this.player = new Player();
     this.meteorRain = new MeteorRain();
+    this.staticGraphics = new StaticGraphics();
 }
 
 Game.prototype.Calculate = function () {
@@ -26,6 +27,7 @@ Game.prototype.Calculate = function () {
 }
 
 Game.prototype.Render = function () {
+    this.staticGraphics.Render();
     this.meteorRain.Render();
     this.player.Render();
 }
