@@ -5,9 +5,9 @@ MeteorRain = function () {
 	this.timer = 0;
 	this.fireTimer = 0;
 	
-	this.start = [ new Vec2(0, 0), new Vec2(200, 0), new Vec2(400, 0), new Vec2(600, 0) ];
-	this.finish = [ new Vec2(300, 300), new Vec2(300, 300), new Vec2(300, 300), new Vec2(300, 300) ];
-	this.rotate = [1, 0, 1, 0];
+	this.start = [ new Vec2(0, 0), new Vec2(200, 0), new Vec2(500, 0), new Vec2(800, 0) ];
+	this.finish = [ new Vec2(400, 300), new Vec2(400, 300), new Vec2(400, 300), new Vec2(400, 300) ];
+	this.rotate = [1, 1, 1, 1];
 }
 
 MeteorRain.prototype.AppendMeteor = function ()
@@ -22,7 +22,7 @@ MeteorRain.prototype.AppendMeteor = function ()
 		this.meteorList.push(newItem);
 	}
 	
-	newItem.index = Math.floor( Math.random() * 3);
+	newItem.index = Math.floor( Math.random() * 4);
 	newItem.rotation = this.rotate[newItem.index]
 	newItem.start = this.start[newItem.index].clone();
 	newItem.finish = this.finish[newItem.index].clone();
