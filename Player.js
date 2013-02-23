@@ -7,7 +7,7 @@ Player = function()
 {
 	this.spriteWidth  = 128;
 	this.spriteHeight = 256;
-	this.positions = [ new Vec2(100, 100), new Vec2(300, 100), new Vec2(500, 100), new Vec2(700, 100) ];
+	this.positions = [ new Vec2(100, 100), new Vec2(250, 100), new Vec2(450, 100), new Vec2(650, 100) ];
 	this.currentPos = 0; //:int - id for place
 	
 	this.mySpr = new Sprite( { "baseUrl" : "res/player", "fps" : 30, "frames" : ["chelyaba_man.png", "chelyaba_man1.png", "chelyaba_man2.png", "chelyaba_man3.png"] } );

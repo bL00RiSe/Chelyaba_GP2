@@ -9,9 +9,10 @@ MeteorRain = function () {
 	this.finish = [ new Vec2(250, 500), new Vec2(350, 500), new Vec2(450, 500), new Vec2(550, 500) ];
 	
 	this.pathTime = 7000;
-	this.fireDelay = 6000;
+	this.fireDelay = 4000;
 	this.heroIndexPosition = 0;
 	this.topBucket = 200;
+	this.bottomBucket = 300;
 	this.catchCounter = 0;
 	this.hitCounter = 0;
 	this.hitPosition = null;
@@ -46,8 +47,8 @@ MeteorRain.prototype.Calculate = function ()
 		this.fireTimer += this.fireDelay;
 		this.AppendMeteor();
 		
-		//if (this.pathTime > 1000) this.pathTime -= 100;
-		if (this.fireDelay > 1000) this.fireDelay -= 100;
+		if (this.pathTime > 1000) this.pathTime -= 100;
+		if (this.fireDelay > 1000) this.fireDelay -= 200;
 	}
 	
 	var that = this;
@@ -104,7 +105,8 @@ Meteor.prototype.Calculate = function (currentTime)
 		
 		this.current = result;
 		
-		if (this.rain.heroIndexPosition == this.index && this.current.y > this.rain.topBucket)
+		if (this.rain.heroIndexPosition == this.index 
+			&& this.current.y > this.rain.topBucket && this.current.y < this.rain.bottomBucket)
 		{
 			this.isVisible = false;
 			this.rain.catchCounter++;
