@@ -20,12 +20,12 @@ Game.prototype.Load = function () {
     this.player = new Player();
 }
 
-Game.prototype.Calculate = function () 
+Game.prototype.Calculate = function () {
     
 }
 
 Game.prototype.Render = function () {
-    this.playerSpr.Render();
+    this.player.Render();
 }
 
 //---------------------------------------------
